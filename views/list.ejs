@@ -1,47 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/personal.css">
+<%-include("header")-%>
 
-    <title>Todo List</title>
-</head>
+    <body>
+        <div class="box">
+            <h1>
+                <%= listTitle %>
+            </h1>
+        </div>
+        <div class="box">
+            <h1>
+                TodoList
+            </h1>
+        </div>
 
-<body>
-    <div class="box">
-        <h1>
-            <%= kindOfDay %>
-        </h1>
-    </div>
+        <div class="box">
 
-    <div class="box">
+            <% for(var i=0; i <newListItems.length; i++ ){ %>
+                <div class="item">
+                    <input type="checkbox" placeholder="Enter">
 
-        <% for(var i=0; i <newListItems.length; i++ ){ %>
-            <div class="item">
-                <input type="checkbox" placeholder="Enter">
+                    <p>
+                        <%= newListItems[i] %>
+                    </p>
+                </div><br>
+                <% } %>
+        </div>
+        <div class="form">
+            <form method='post' action="/">
 
-                <p>
+                <input placeholder="Enter new item" type="text" name="newLi" autocomplete="off" autofocus="on">
+                <button type="submit" name="list" value=<%=listTitle %>>+</button>
 
+            </form>
+        </div>
+        <%-include("footer")-%>
+    </body>
 
-                    <%= newListItems[i] %>
-                </p>
-            </div><br>
-            <% } %>
-    </div>
-    <div class="form">
-        <form method='post' action="/">
-
-            <input placeholder="Enter new item" type="text" name="newLi" autocomplete="off" autofocus="on">
-            <button type="submit">+</button>
-
-        </form>
-    </div>
-
-    <section id="footer">
-    </section>
-</body>
-
-</html>
+    </html>
