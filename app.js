@@ -2,52 +2,32 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-
+const date = require(__dirname + "/date.js");
 app.use(bodyParser.urlencoded({ extended: true }));
+//Setting up EJS
 app.set('view engine', 'ejs');
-
+//loading static files.
 app.use(express.static("public"));
 let items = [];
 let workItems = [];
 let weekItems = [];
 
+// Start of get and post requests.
+
+// home route
 app.get('/', (req, res) => {
 
-    const today = new Date();
-    let options = {
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long'
-
-    }
-    let day = today.toLocaleDateString("en-US", options);
+    let day = date.getDate();
     res.render('list', { listTitle: day, newListItems: items });
 
 })
-
+// Post request at home route
 app.post("/", (req, res) => {
 
-    let workSubmit = req.body.list;
+    let workSubmit = req.body.list; // This gives is the form post button value.
 
-    // if (workSubmit === "Work") {
-    //     let workItem = req.body.newLi;
-    //     workItems.push(workItem);
-    //     res.redirect("/work");
-    //  }
-    //   if(workSubmit ==="weekend"){
-    //     let weekItem = req.body.newLi;
-    //     weekItems.push(weekItem);
-    //     res.redirect("/weekend");
-    //  }
-    //   else {
-    //     let item = req.body.newLi;
-    //     items.push(item);
-    //     res.redirect('/');
 
-    //  }
-
-    // Using Switch Statement
-
+    // Switch statement
     switch (workSubmit) {
 
         case "Work":
@@ -84,6 +64,9 @@ app.get("/weekend", (req, res) => {
     res.render("list", { listTitle: "Weekend", newListItems: weekItems })
 })
 
+app.get("/contact", (req, res) => {
+    res.render("contact");
+})
 
 
 
